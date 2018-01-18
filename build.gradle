@@ -10,8 +10,8 @@ apply plugin: 'jacoco'
 
 repositories {
     mavenCentral()
-    jcenter()
     maven { url 'http://repo.jenkins-ci.org/releases/' }
+    jcenter()
 }
 
 configurations {
@@ -20,43 +20,39 @@ configurations {
 
 dependencies {
     compile 'org.codehaus.groovy:groovy-all:2.4.11'
-    compile 'org.jenkins-ci.plugins:job-dsl-core:1.66'
-    compile 'org.jenkins-ci.main:jenkins-core:2.7.4'
-    compile 'javax.servlet:javax.servlet-api:3.1.0'
+    compile "org.jenkins-ci.plugins:job-dsl-core:${jobDslVersion}"
+    compile "org.jenkins-ci.main:jenkins-core:${jenkinsVersion}"
+
+    // JUnit
     testCompile group: 'junit', name: 'junit', version: '4.11'
-    compile 'javax.servlet:javax.servlet-api:3.1.0'
 
     // Spock dependencies
-    testCompile('org.spockframework:spock-core:0.7-groovy-2.0') {
-        exclude module: 'groovy-all'
-    }
+    testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
     testCompile 'cglib:cglib-nodep:2.2.2'
 
     // Jenkins test harness dependencies
-    testCompile ('org.jenkins-ci.main:jenkins-test-harness:2.8') {
+    testCompile ('org.jenkins-ci.main:jenkins-test-harness:2.33') {
         exclude(module: 'org-netbeans-insane')
     }
-    testCompile 'org.jenkins-ci.main:jenkins-core:2.7.4'
-    testCompile 'org.jenkins-ci.main:jenkins-war:2.7.4'
-    testCompile 'org.jenkins-ci.main:jenkins-war:2.7.4:war-for-test@jar'
+    testCompile "org.jenkins-ci.main:jenkins-core:${jenkinsVersion}"
+    testCompile "org.jenkins-ci.main:jenkins-war:${jenkinsVersion}"
+    //testCompile "org.jenkins-ci.main:jenkins-war:${jenkinsVersion}:war-for-test@jar"
 
     // Job DSL plugin including plugin dependencies
-    testCompile 'org.jenkins-ci.plugins:job-dsl:1.66'
-    testCompile 'org.jenkins-ci.plugins:job-dsl:1.66@jar'
-    testCompile 'org.jenkins-ci.plugins:structs:1.1@jar'
+    testCompile "org.jenkins-ci.plugins:job-dsl:${jobDslVersion}"
+    testCompile "org.jenkins-ci.plugins:job-dsl:${jobDslVersion}@jar"
+    testCompile 'org.jenkins-ci.plugins:structs:1.10@jar'
 
     // Plugins to install in test instance
     // Job Configurations
-    testPlugins group: 'org.jenkins-ci.plugins', name: 'job-dsl', version: '1.66'
-    testPlugins group: 'org.jenkins-ci.plugins', name: 'jobConfigHistory', version: '2.16'
-    testPlugins group: 'org.jenkins-ci.plugins.workflow', name: 'workflow-multibranch', version: '2.14'
+    testPlugins group: 'org.jenkins-ci.plugins', name: 'job-dsl', version: "${jobDslVersion}"
+    //testPlugins group: 'org.jenkins-ci.plugins.workflow', name: 'workflow-aggregator', version: '2.5'
+    testPlugins group: 'org.jenkins-ci.plugins.workflow', name: 'workflow-multibranch', version: '2.16'
+    // SCM
+    testPlugins group: 'org.jenkins-ci.plugins', name: 'git', version: '3.3.0'
     // Build Tools
     testPlugins group: 'org.jenkins-ci.main', name: 'maven-plugin', version: '2.15.1'
     testPlugins group: 'org.jenkins-ci.plugins', name: 'gradle', version: '1.26'
-    // SCM
-    testPlugins group: 'org.jenkins-ci.plugins', name: 'git', version: '3.3.0'
-    testPlugins group: 'org.jenkins-ci.plugins', name: 'clone-workspace-scm', version: '0.6'
-    testPlugins group: 'org.jenkins-ci.plugins', name: 'multiple-scms', version: '0.6'
     // Static Analysis
     testPlugins group: 'org.jvnet.hudson.plugins', name: 'checkstyle', version: '3.48'
     testPlugins group: 'org.jvnet.hudson.plugins', name: 'pmd', version: '3.47'
@@ -65,12 +61,8 @@ dependencies {
     // Test
     testPlugins group: 'org.jenkins-ci.plugins', name: 'jacoco', version: '2.2.1'
     testPlugins group: 'org.jenkins-ci.plugins', name: 'cobertura', version: '1.10'
-    testPlugins group: 'org.jenkins-ci.plugins', name: 'test-results-analyzer', version: '0.3.4'
-    testPlugins group: 'de.esailors.jenkins', name: 'test-stability', version: '2.2'
     // Views
     testPlugins group: 'org.jenkins-ci.plugins', name: 'nested-view', version: '1.14'
-    // Build Settings
-    testPlugins group: 'org.jenkins-ci.plugins', name: 'build-timeout', version: '1.18'
     // Jenkins Settings
     testPlugins group: 'org.jenkins-ci.plugins', name: 'greenballs', version: '1.15'
     testPlugins group: 'org.jenkins-ci.plugins', name: 'ci-game', version: '1.26'
@@ -90,8 +82,15 @@ task resolveTestPlugins(type: Copy) {
     into new File(sourceSets.test.output.resourcesDir, 'test-dependencies')
     include '*.hpi'
     include '*.jpi'
+    def mapping = [:]
+    doFirst {
+        configurations.testPlugins.resolvedConfiguration.resolvedArtifacts.each {
+            mapping[it.file.name] = "${it.name}.${it.extension}"
+        }
+    }
+    rename { mapping[it] }
     doLast {
-        def baseNames = source.collect { it.name[0..it.name.lastIndexOf('.') - 1] }
+        List<String> baseNames = source*.name.collect { mapping[it] }.collect { it[0..it.lastIndexOf('.') - 1] }
         new File(destinationDir, 'index').setText(baseNames.join('\n'), 'UTF-8')
     }
 }

@@ -24,10 +24,10 @@ class JobScriptsSpec extends Specification {
     void 'test script #file.name'(File file) {
         given:
         JobManagement jm = new JenkinsJobManagement(System.out, [:], new File('.'))
-        jm.requirePlugin('job-dsl', false)
-        jm.requirePlugin('workflow-multibranch', false)
+        jm.requirePlugin('job-dsl', true)
+        jm.requirePlugin('git', true)
+        jm.requirePlugin('workflow-multibranch', true)
         jm.requirePlugin('gradle', false)
-        jm.requirePlugin('git', false)
         jm.requirePlugin('checkstyle', false)
         jm.requirePlugin('pmd', false)
         jm.requirePlugin('findbugs', false)
