@@ -36,7 +36,6 @@ dependencies {
     }
     testCompile "org.jenkins-ci.main:jenkins-core:${jenkinsVersion}"
     testCompile "org.jenkins-ci.main:jenkins-war:${jenkinsVersion}"
-    //testCompile "org.jenkins-ci.main:jenkins-war:${jenkinsVersion}:war-for-test@jar"
 
     // Job DSL plugin including plugin dependencies
     testCompile "org.jenkins-ci.plugins:job-dsl:${jobDslVersion}"
