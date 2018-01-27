@@ -2,7 +2,7 @@ group 'jnonino.devops.jenkins'
 version '1.0-SNAPSHOT'
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '4.4.1'
+    gradleVersion = '4.5'
 }
 
 apply plugin: 'groovy'
