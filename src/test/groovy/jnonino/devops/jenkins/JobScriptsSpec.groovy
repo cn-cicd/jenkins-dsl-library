@@ -71,7 +71,7 @@ class JobScriptsSpec extends Specification {
 
     static List<File> getJobFiles() {
         List<File> files = []
-        new File('src/jobs').eachFileRecurse(FileType.FILES) {
+        new File('jobs').eachFileRecurse(FileType.FILES) {
             if (it.name.endsWith('.groovy')) {
                 files << it
             }
