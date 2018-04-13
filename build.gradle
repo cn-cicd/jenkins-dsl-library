@@ -2,7 +2,7 @@ group 'jnonino.devops.jenkins'
 version '1.0-SNAPSHOT'
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '4.5'
+    gradleVersion = '4.6'
 }
 
 apply plugin: 'groovy'
@@ -19,19 +19,19 @@ configurations {
 }
 
 dependencies {
-    compile 'org.codehaus.groovy:groovy-all:2.4.11'
+    compile 'org.codehaus.groovy:groovy-all:2.4.+'
     compile "org.jenkins-ci.plugins:job-dsl-core:${jobDslVersion}"
     compile "org.jenkins-ci.main:jenkins-core:${jenkinsVersion}"
 
     // JUnit
-    testCompile group: 'junit', name: 'junit', version: '4.11'
+    testCompile group: 'junit', name: 'junit', version: '+'
 
     // Spock dependencies
-    testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
-    testCompile 'cglib:cglib-nodep:2.2.2'
+    testCompile 'org.spockframework:spock-core:1.1-groovy-2.4'
+    testCompile 'cglib:cglib-nodep:+'
 
     // Jenkins test harness dependencies
-    testCompile ('org.jenkins-ci.main:jenkins-test-harness:2.33') {
+    testCompile ('org.jenkins-ci.main:jenkins-test-harness:+') {
         exclude(module: 'org-netbeans-insane')
     }
     testCompile "org.jenkins-ci.main:jenkins-core:${jenkinsVersion}"
@@ -46,26 +46,26 @@ dependencies {
     // Job Configurations
     testPlugins group: 'org.jenkins-ci.plugins', name: 'job-dsl', version: "${jobDslVersion}"
     //testPlugins group: 'org.jenkins-ci.plugins.workflow', name: 'workflow-aggregator', version: '2.5'
-    testPlugins group: 'org.jenkins-ci.plugins.workflow', name: 'workflow-multibranch', version: '2.16'
+    testPlugins group: 'org.jenkins-ci.plugins.workflow', name: 'workflow-multibranch', version: '+'
     // SCM
-    testPlugins group: 'org.jenkins-ci.plugins', name: 'git', version: '3.3.0'
+    testPlugins group: 'org.jenkins-ci.plugins', name: 'git', version: '+'
     // Build Tools
-    testPlugins group: 'org.jenkins-ci.main', name: 'maven-plugin', version: '2.15.1'
-    testPlugins group: 'org.jenkins-ci.plugins', name: 'gradle', version: '1.26'
+    testPlugins group: 'org.jenkins-ci.main', name: 'maven-plugin', version: '+'
+    testPlugins group: 'org.jenkins-ci.plugins', name: 'gradle', version: '+'
     // Static Analysis
-    testPlugins group: 'org.jvnet.hudson.plugins', name: 'checkstyle', version: '3.48'
-    testPlugins group: 'org.jvnet.hudson.plugins', name: 'pmd', version: '3.47'
-    testPlugins group: 'org.jvnet.hudson.plugins', name: 'findbugs', version: '4.70'
-    testPlugins group: 'org.jvnet.hudson.plugins', name: 'tasks', version: '4.51'
+    testPlugins group: 'org.jvnet.hudson.plugins', name: 'checkstyle', version: '+'
+    testPlugins group: 'org.jvnet.hudson.plugins', name: 'pmd', version: '+'
+    testPlugins group: 'org.jvnet.hudson.plugins', name: 'findbugs', version: '+'
+    testPlugins group: 'org.jvnet.hudson.plugins', name: 'tasks', version: '+'
     // Test
-    testPlugins group: 'org.jenkins-ci.plugins', name: 'jacoco', version: '2.2.1'
-    testPlugins group: 'org.jenkins-ci.plugins', name: 'cobertura', version: '1.10'
+    testPlugins group: 'org.jenkins-ci.plugins', name: 'jacoco', version: '+'
+    testPlugins group: 'org.jenkins-ci.plugins', name: 'cobertura', version: '+'
     // Views
-    testPlugins group: 'org.jenkins-ci.plugins', name: 'nested-view', version: '1.14'
+    testPlugins group: 'org.jenkins-ci.plugins', name: 'nested-view', version: '+'
     // Jenkins Settings
-    testPlugins group: 'org.jenkins-ci.plugins', name: 'greenballs', version: '1.15'
-    testPlugins group: 'org.jenkins-ci.plugins', name: 'ci-game', version: '1.26'
-    testPlugins group: 'org.jenkins-ci.plugins', name: 'emotional-jenkins-plugin', version: '1.2'
+    testPlugins group: 'org.jenkins-ci.plugins', name: 'greenballs', version: '+'
+    testPlugins group: 'org.jenkins-ci.plugins', name: 'ci-game', version: '+'
+    testPlugins group: 'org.jenkins-ci.plugins', name: 'emotional-jenkins-plugin', version: '+'
 }
 
 sourceSets {
