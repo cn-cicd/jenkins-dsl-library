@@ -1,4 +1,4 @@
-package jnonino.devops.jenkins
+package cnservices.devops.jenkins
 
 import javaposse.jobdsl.dsl.DslFactory
 

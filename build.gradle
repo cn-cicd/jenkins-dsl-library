@@ -1,4 +1,4 @@
-group 'jnonino.devops.jenkins'
+group 'cnservices.devops.jenkins'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'groovy'

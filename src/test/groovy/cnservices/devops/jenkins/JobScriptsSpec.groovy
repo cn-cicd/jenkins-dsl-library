@@ -1,4 +1,4 @@
-package jnonino.devops.jenkins
+package cnservices.devops.jenkins
 
 import groovy.io.FileType
 import hudson.model.Item
