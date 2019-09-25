@@ -8,7 +8,7 @@
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
-        <url>git@github.com:jnonino/jenkins-dsl-library.git</url>
+        <url>git@github.com:cn-cicd/jenkins-dsl-library.git</url>
         <credentialsId>git-ssh-key</credentialsId>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
