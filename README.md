@@ -1,6 +1,6 @@
 # Jenkins DSL Library
 
-[![CircleCI](https://circleci.com/gh/cn-cicd/jenkins-dsl-library/tree/master.svg?style=svg)](https://circleci.com/gh/cn-cicd/jenkins-dsl-library/tree/master)
+[![CircleCI](https://circleci.com/gh/cn-cicd/jenkins-dsl-library/tree/main.svg?style=svg)](https://circleci.com/gh/cn-cicd/jenkins-dsl-library/tree/main)
 [![](https://img.shields.io/github/license/cn-cicd/jenkins-dsl-library)](https://github.com/cn-cicd/jenkins-dsl-library)
 [![](https://img.shields.io/github/issues/cn-cicd/jenkins-dsl-library)](https://github.com/cn-cicd/jenkins-dsl-library)
 [![](https://img.shields.io/github/issues-closed/cn-cicd/jenkins-dsl-library)](https://github.com/cn-cicd/jenkins-dsl-library)
